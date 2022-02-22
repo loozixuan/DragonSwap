@@ -6,7 +6,7 @@ class Home extends Component {
         return(
             <>
                 <div>Hello World</div>
-                <Link to="/profile">My Link</Link>
+                <Link to="/profile">My Link</Link> 
             </>
         );
     }
