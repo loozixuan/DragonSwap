@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {withRouter, Link} from 'react-router-dom';
+import './Home.css';
+
+import Header from '../components/Header/Header';
 
 class Home extends Component {
     render(){
         return(
             <>
-                <div>Hello World</div>
-                <Link to="/profile">My Link</Link> 
+                <Header />
             </>
         );
     }

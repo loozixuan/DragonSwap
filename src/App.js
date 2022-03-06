@@ -8,8 +8,9 @@ import {
   BrowserRouter,
   Redirect
 } from "react-router-dom";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './containers/Home';
+import Profile from './containers/Profile';
 
 class App extends Component {
   render() {
@@ -17,6 +18,9 @@ class App extends Component {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+        </Routes>
+        <Routes>
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     )
