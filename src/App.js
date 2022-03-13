@@ -22,6 +22,7 @@ class App extends Component {
         <Routes>
           <Route path="/profile" element={<Profile />} />
         </Routes>
+
       </BrowserRouter>
     )
   }
