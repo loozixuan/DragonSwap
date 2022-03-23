@@ -10,7 +10,9 @@ import {
 } from "react-router-dom";
 
 import Home from './containers/Home';
-import Profile from './containers/Profile';
+import ProvideLiquidity from './components/ProvideComponent/ProvideComponent';
+import WithdrawLiquidity from './components/WithdrawComponent/WithdrawComponent';
+import ContainerComponent from './components/ContainerComponent';
 
 class App extends Component {
   render() {
@@ -20,9 +22,14 @@ class App extends Component {
           <Route path="/" element={<Home />} />
         </Routes>
         <Routes>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/provide-liquidity" element={<ProvideLiquidity />} />
         </Routes>
-
+        <Routes>
+          <Route path="/withdraw-liquidity" element={<WithdrawLiquidity />} />
+        </Routes>
+        <Routes>
+          <Route path="/pool" element={<ContainerComponent />} />
+        </Routes>
       </BrowserRouter>
     )
   }

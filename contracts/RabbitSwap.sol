@@ -12,6 +12,7 @@ contract RabbitSwap{
     struct LiquidityProvider{
         uint256 token_1_balance;
         uint256 token_2_balance;
+        uint256 LPToken;
         uint256 share;
     }
 
