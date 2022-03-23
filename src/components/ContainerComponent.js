@@ -5,10 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Header from './Header/Header.js';
 import ProvideLiquidity from './ProvideComponent/ProvideComponent';
 import WithdrawLiquidity from './WithdrawComponent/WithdrawComponent';
+import './ContainerComponent.css';
 
 export default function ProvideComponent() {
     return (
-        <div>
+        <div style={{height: "100vh",background: "#F8F8F8" }}>
             <Header />
 
             <div className='d-block mx-auto w-75 p-5'>

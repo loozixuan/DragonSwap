@@ -7,7 +7,7 @@ export default function ProvideComponent() {
         <div>
             {/* background-color: rgb(33, 36, 41) */}
             <Card className="mt-5">
-                <Card.Header>Add Liquidity</Card.Header>
+                <Card.Header><h5>Add Liquidity</h5></Card.Header>
                 <Card.Body>
                     <Card.Title>ERC-20/ETH</Card.Title>
                     <Card.Text>

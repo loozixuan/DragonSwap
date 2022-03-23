@@ -5,7 +5,7 @@ import './Header.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
-
+import ContainerComponent from '../ContainerComponent';
 
 export default function Header() {
     return (
@@ -18,7 +18,7 @@ export default function Header() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="#features">Pool</Nav.Link>
+                        <Nav.Link href="/pool">Pool</Nav.Link>
                         <Nav.Link href="#pricing">Swap</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
