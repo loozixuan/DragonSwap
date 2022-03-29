@@ -8,9 +8,12 @@ import {
   BrowserRouter,
   Redirect
 } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Home from './containers/Home';
-import Profile from './containers/Profile';
+import ProvideLiquidity from './components/ProvideComponent/ProvideComponent';
+import WithdrawLiquidity from './components/WithdrawComponent/WithdrawComponent';
+import ContainerComponent from './components/ContainerComponent';
+import SwapComponent from './components/SwapComponent/SwapComponent';
 
 class App extends Component {
   render() {
@@ -20,7 +23,16 @@ class App extends Component {
           <Route path="/" element={<Home />} />
         </Routes>
         <Routes>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/provide-liquidity" element={<ProvideLiquidity />} />
+        </Routes>
+        <Routes>
+          <Route path="/withdraw-liquidity" element={<WithdrawLiquidity />} />
+        </Routes>
+        <Routes>
+          <Route path="/pool" element={<ContainerComponent />} />
+        </Routes>
+        <Routes>
+          <Route path="/swap" element={<SwapComponent />} />
         </Routes>
       </BrowserRouter>
     )

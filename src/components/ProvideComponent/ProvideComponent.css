@@ -1,0 +1,42 @@
+.input-field div:nth-child(1){
+    border: 1px solid black;
+    padding: 5px;
+    font-weight: 500;
+}
+
+.input-field div:nth-child(2) input{
+    border: 1px solid black;
+    border-left: none;
+    padding: 5px;
+    text-indent: 10px;
+}
+
+::placeholder{
+    text-indent: 10px;
+}
+
+.card{
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%) !important;
+}
+
+.info-card{
+    width: 33.33%;
+    max-width: 800px;
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+    /* border: 2px solid black; */
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 6px 0 #0000006e;
+}
+
+.add-liquidity-button{
+    display:block;
+    margin-left:auto;
+    margin-right: auto;
+    outline: none;
+    border: none;
+    padding: 8px !important;
+    width: 155px;
+}

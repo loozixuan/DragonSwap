@@ -1,15 +1,17 @@
-import React, {Component} from 'react';
-import {withRouter, Link} from 'react-router-dom';
-import './Home.css';
-
-import Header from '../components/Header/Header';
-
+import React, { Component } from 'react';
+import { withRouter, Link } from 'react-router-dom';
+import Layout from '../components/Layout';
 class Home extends Component {
-    render(){
-        return(
-            <>
-                <Header />
-            </>
+    render() {
+        return (
+            <Layout>
+                <div>
+                    <div>Hello World</div>
+                    {/* <Link to="/profile">My Link</Link>  */}
+
+                </div>
+            </Layout>
+
         );
     }
 }
