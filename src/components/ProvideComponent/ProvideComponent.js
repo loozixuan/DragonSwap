@@ -6,10 +6,10 @@ export default function ProvideComponent() {
     return (
         <div>
             {/* background-color: rgb(33, 36, 41) */}
-            <Card className="mt-5">
-                <Card.Header><h5>Add Liquidity</h5></Card.Header>
+            <Card className="mt-5 card-provide">
+                <Card.Header><div className="title">Add Liquidity</div></Card.Header>
                 <Card.Body>
-                    <Card.Title>ERC-20/ETH</Card.Title>
+                    <Card.Title className="mb-2">ERC-20/ETH</Card.Title>
                     <Card.Text>
                         <div className="input-field d-flex pb-2">
                             <div className='w-25'>ERC-20</div>
