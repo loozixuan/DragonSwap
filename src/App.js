@@ -8,7 +8,7 @@ import {
   BrowserRouter,
   Redirect
 } from "react-router-dom";
-
+import Web3 from 'web3';
 import Home from './containers/Home';
 import ProvideLiquidity from './components/ProvideComponent/ProvideComponent';
 import WithdrawLiquidity from './components/WithdrawComponent/WithdrawComponent';
