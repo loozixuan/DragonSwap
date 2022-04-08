@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Logo from '../../images/rabbit-swap.png';
+import Logo from '../../images/dragon_swap.png';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './Header.css';
 import Navbar from 'react-bootstrap/Navbar';
@@ -14,7 +14,7 @@ export default function Header() {
                 <div className="logo-container" >
                     <img src={Logo} className="logo-img" />
                 </div>
-                <Navbar.Brand href="#home">Rabbitswap</Navbar.Brand>
+                <Navbar.Brand href="#home">Dragonswap</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
