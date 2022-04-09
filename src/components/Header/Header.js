@@ -29,6 +29,8 @@ export default function Header() {
             window.ethereum
                 .request({ method: "eth_requestAccounts" })
                 .then((res) => accountChangeHandler(res[0]));
+            
+                document.getElementById("btn-connect").style.display = "none";
         } else {
             alert("install metamask extension!!");
         }
@@ -37,7 +39,6 @@ export default function Header() {
     // getbalance function for getting a balance in
     // a right format with help of ethers
     const getbalance = (address) => {
-
         // Requesting balance method
         window.ethereum
             .request({
@@ -59,6 +60,9 @@ export default function Header() {
             address: account,
         });
 
+        // Set the account address 
+        document.getElementById("address").innerHTML = account;
+
         // Setting a balance
         getbalance(account);
     };
@@ -79,9 +83,11 @@ export default function Header() {
                         <Nav.Link href="#pricing">Swap</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
-                <Button onClick={btnhandler} >
+                <Button onClick={btnhandler} id="btn-connect">
                     Connect Wallet
                 </Button>
+
+                <div id="address" className="text-white p-3"></div>
             </Navbar>
             <div><strong>Balance: </strong>
                 {data.Balance}</div>
