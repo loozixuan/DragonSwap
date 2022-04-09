@@ -5,9 +5,10 @@ import './Header.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
-import ContainerComponent from '../ContainerComponent';
+
 
 export default function Header() {
+
     return (
         <header>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="nav-container">
@@ -22,7 +23,7 @@ export default function Header() {
                         <Nav.Link href="#pricing">Swap</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
-
+               
                 <Button>
                     Connect Wallet
                 </Button>
