@@ -17,13 +17,13 @@ export default function WithdrawComponent() {
                     </Card.Title>
                     <Card.Text>
                         <div className="pool-token">
-                            <div className='label'>Your pool token :</div>
+                            <div className='label'>Your pool tokens:</div>
                             <div className="float:right">0.6728</div>
                         </div>
-                        <div className="pool-share">
+                        {/* <div className="pool-share">
                             <div className='label'>Your pool share :</div>
                             <div className="float:right">0.3%</div>
-                        </div>
+                        </div> */}
                         <InputGroup className="mb-3">
                             <InputGroup.Text id="basic-addon1">ERC-20</InputGroup.Text>
                             <FormControl

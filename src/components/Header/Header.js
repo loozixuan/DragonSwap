@@ -8,7 +8,7 @@ import { Button, Card } from "react-bootstrap";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../../wallet/Connect";
-import web3 from "web3";
+import Web3 from "web3";
 
 
 export default function Header() {
@@ -20,17 +20,21 @@ export default function Header() {
 
     // Button handler button for handling a
     // request event for metamask
-    const btnhandler = () => {
+    async function btnhandler() {
 
         // Asking if metamask is already present or not
         if (window.ethereum) {
-
+            window.web3 = new Web3(window.ethereum)
             // res[0] for fetching a first wallet
-            window.ethereum
+            await window.ethereum
                 .request({ method: "eth_requestAccounts" })
                 .then((res) => accountChangeHandler(res[0]));
-            
-                document.getElementById("btn-connect").style.display = "none";
+
+            document.getElementById("btn-connect").style.display = "none";
+        }
+        // Legacy dapp browsers...
+        else if (window.web3) {
+            window.web3 = new Web3(window.web3.currentProvider)
         } else {
             alert("install metamask extension!!");
         }

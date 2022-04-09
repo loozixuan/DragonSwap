@@ -20,6 +20,7 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.0",
     "react-tabs": "^4.0.1",
+    "solc": "^0.8.13",
     "stream": "^0.0.2",
     "web-vitals": "^2.1.0",
     "web3": "^1.7.3"
