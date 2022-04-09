@@ -1,14 +1,23 @@
 let IERC20 = artifacts.require("./IERC20.sol");
+let DragonSwap = artifacts.require("./DragonSwap.sol");
 
 let IERC20Instance;
+let DragonSwapInstance;
 
 contract('IERC20 Contract', function (accounts) {
   //accounts[0] is the default account
   //Positive Test 1 
-  it("Contract deployment", function() {
-    return Ballot.deployed().then(function (instance) {
+  it("Contract deployment 1", function() {
+    return IERC20.deployed().then(function (instance) {
         IERC20Instance = instance;
-      assert(IERC20Instance !== undefined, 'Ballot contract should be defined');
+      assert(IERC20Instance !== undefined, 'IERC20 contract should be defined');
+    });
+  });
+
+  it("Contract deployment 2", function() {
+    return DragonSwap.deployed().then(function (instance) {
+        DragonSwapInstance = instance;
+      assert(DragonSwapInstance !== undefined, 'DragonSwap contract should be defined');
     });
   });
 

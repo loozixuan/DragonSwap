@@ -28,8 +28,8 @@ contract DragonSwap{
     LiquidityPool public liquidityPool;     // represent the pool
 
     constructor(){
-        token1 = new ERC20Basic("ETHER", "ETH");
-        token2 = new ERC20Basic("DRAGON", "DRG");
+        token1 = new ERC20Basic();
+        token2 = new ERC20Basic();
         liquidityPool.total_token_1 = token1.balanceOf(address(this)); // 10 Ether
         liquidityPool.total_token_2 = token2.balanceOf(address(this)); // 10 Ether
         name1 = token1.name();
