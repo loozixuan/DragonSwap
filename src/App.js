@@ -14,8 +14,7 @@ import ProvideLiquidity from './components/ProvideComponent/ProvideComponent';
 import WithdrawLiquidity from './components/WithdrawComponent/WithdrawComponent';
 import ContainerComponent from './components/ContainerComponent';
 
-class App extends Component {
-  render() {
+function App() {
     return (
       <BrowserRouter>
         <Routes>
@@ -32,7 +31,6 @@ class App extends Component {
         </Routes>
       </BrowserRouter>
     )
-  }
 }
 
 export default App;
