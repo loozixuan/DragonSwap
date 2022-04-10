@@ -84,7 +84,7 @@ export default function Header() {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="/pool">Pool</Nav.Link>
-                        <Nav.Link href="#pricing">Swap</Nav.Link>
+                        <Nav.Link href="/swap">Swap</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 <Button onClick={btnhandler} id="btn-connect">

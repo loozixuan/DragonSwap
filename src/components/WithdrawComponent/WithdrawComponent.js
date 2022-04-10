@@ -9,8 +9,6 @@ import Web3 from 'web3';
 
 export default function WithdrawComponent() {
 
-
-
     //load the metamask account and display on web page
     async function loadBlockchainData() {
         const web3 = window.web3
