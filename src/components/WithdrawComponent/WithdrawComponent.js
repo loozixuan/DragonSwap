@@ -4,8 +4,45 @@ import './WithdrawComponent.css';
 import { Card, Button } from 'react-bootstrap';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
+import DragonSwap from '../../abis/DragonSwap.json'
+import Web3 from 'web3';
 
 export default function WithdrawComponent() {
+
+
+
+    //load the metamask account and display on web page
+    async function loadBlockchainData() {
+        const web3 = window.web3
+        //load account
+        const accounts = await web3.eth.getAccounts()
+        console.log(accounts)
+        // this.setState({ account: accounts[0] })  //error
+
+        console.log(DragonSwap.abi, DragonSwap.networks[5777].address)
+        const networkId = await web3.eth.net.getId()
+        //console.log(networkId)
+        const networkData = DragonSwap.networks[networkId]
+        if (networkData) {
+            const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
+            // this.setState({ marketplace })
+            console.log('Marketplace' + dragonswap)
+            const tokenCount = await dragonswap.methods.token1().call()
+            console.log("product:" + tokenCount.toString())
+
+        } else {
+            window.alert('Marketplace contract not deployed to detected network')
+
+        }
+
+        //const abi = Marketplace.abi
+        //const address = Marketplace.networks[5777].address
+        //make it dynamic to get network ID
+        //const address = Marketplace.networks[networkId].address
+        //const marketplace = new web3.eth.Contract(abi, address)
+        //console.log(marketplace)
+    }
+
     return (
         <div >
             {/* background-color: rgb(33, 36, 41) */}
@@ -17,13 +54,13 @@ export default function WithdrawComponent() {
                     </Card.Title>
                     <Card.Text>
                         <div className="pool-token">
-                            <div className='label'>Your pool token :</div>
+                            <div className='label'>Your pool tokens:</div>
                             <div className="float:right">0.6728</div>
                         </div>
-                        <div className="pool-share">
+                        {/* <div className="pool-share">
                             <div className='label'>Your pool share :</div>
                             <div className="float:right">0.3%</div>
-                        </div>
+                        </div> */}
                         <InputGroup className="mb-3">
                             <InputGroup.Text id="basic-addon1">ERC-20</InputGroup.Text>
                             <FormControl
@@ -42,7 +79,7 @@ export default function WithdrawComponent() {
                         </InputGroup>
 
                     </Card.Text>
-                    <Button  className="withdraw-btn">Withdraw</Button>
+                    <Button className="withdraw-btn" onClick={loadBlockchainData}>Withdraw</Button>
                 </Card.Body>
             </Card>
         </div>
