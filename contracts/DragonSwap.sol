@@ -30,13 +30,13 @@ contract DragonSwap{
     constructor(){
         token1 = new ERC20Basic();
         token2 = new ERC20Basic();
-        liquidityPool.total_token_1 = token1.balanceOf(address(this)); // 10 Ether
-        liquidityPool.total_token_2 = token2.balanceOf(address(this)); // 10 Ether
+        liquidityPool.total_token_1 = 100; // 10 Ether
+        liquidityPool.total_token_2 = 250; // 10 Ether
         name1 = token1.name();
         name2 = token2.name();
         liquidityPool.K = token1.balanceOf(address(this)) * token2.balanceOf(address(this));    // 10 ** 36 - constant 
-        token_1_balance[msg.sender] = 1000000000000000000;
-        token_2_balance[msg.sender] = 1000000000000000000;
+        token_1_balance[msg.sender] = 10000;
+        token_2_balance[msg.sender] = 10000;
     }
 
     // Ensures that the _qty is non-zero and the user has enough balance
@@ -55,6 +55,11 @@ contract DragonSwap{
     // Returns the total amount of tokens locked in the pool and the total shares issued corresponding to it
     function getPoolDetails() external view returns(uint256, uint256, uint256) {
         return (liquidityPool.total_token_1, liquidityPool.total_token_2, liquidityPool.total_LPTokens);
+    }
+
+    function LPToken(uint256 _amountToken1, uint256 _amountToken2) external pure returns(uint256 amountLPToken) {
+        amountLPToken = _amountToken1 + _amountToken2;
+        return amountLPToken;
     }
 
     // Returns the balance of the user
@@ -84,14 +89,7 @@ contract DragonSwap{
     */ 
     function provideLiquidity(uint256 _amountToken1, uint256 _amountToken2) validAmountCheck(token_1_balance, _amountToken1) validAmountCheck(token_2_balance, _amountToken2) public returns(uint256 LP_token){
 
-        if(liquidityPool.total_LPTokens == 0){
-            LP_token = 100;
-        }else{
-            uint256 LP_token1 = liquidityPool.total_LPTokens.mul(_amountToken1).div(liquidityPool.total_token_1);
-            uint256 LP_token2 = liquidityPool.total_LPTokens.mul(_amountToken2).div(liquidityPool.total_token_2);
-            require(LP_token1 == LP_token2, "Equivalent value of tokens not provided...");
-            LP_token = LP_token1;
-        }
+        LP_token = _amountToken1 + _amountToken2;
 
         require(LP_token > 0, "Asset value less than threshold for contribution!");
         token_1_balance[msg.sender] -= _amountToken1;

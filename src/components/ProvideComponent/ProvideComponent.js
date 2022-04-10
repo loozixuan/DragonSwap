@@ -5,7 +5,8 @@ import DragonSwap from '../../abis/DragonSwap.json'
 import Web3 from 'web3';
 
 export default function ProvideComponent() {
-    let [token1, setToken1] = useState(9);
+    let [LPTokenReturned, setLPTokenReturned] = useState(0);
+
     //load the metamask account and display on web page
     async function loadBlockchainData() {
         const web3 = new Web3(window.web3.currentProvider);
@@ -23,22 +24,25 @@ export default function ProvideComponent() {
             dragonswap.methods.checkMyBalances().call(function (error, result) {
                 console.log("token 1 balances : ", result[0])
                 console.log("token 2 balances : ", result[1])
-                token1 = setToken1(result[0]);
             });
 
             // Check msg.sender balances
             dragonswap.methods.getPoolDetails().call(function (error, result) {
+                console.log(result)
                 console.log("Total token 1 in pool : ", result[0])
                 console.log("Total token 2 in pool : ", result[1])
                 console.log("LP token owned : ", result[2])
-                token1 = setToken1(result[0]);
             });
 
             // Provide Liquidity
             var amount_token_1 = parseInt(document.getElementById("token1").value);
             var amount_token_2 = parseInt(document.getElementById("token2").value);
 
-            dragonswap.methods.provideLiquidity(amount_token_1, amount_token_2).send({ from: accounts[0] })
+            dragonswap.methods.LPToken(amount_token_1,amount_token_2).call(function (error, result) {
+                LPTokenReturned = setLPTokenReturned(result);
+            });
+
+            dragonswap.methods.provideLiquidity(amount_token_1,amount_token_2).send({from: accounts[0]})
                 .then(function (receipt) {
                     console.log(receipt)
                 });
@@ -50,36 +54,35 @@ export default function ProvideComponent() {
 
     return (
         <div>
-            {/* background-color: rgb(33, 36, 41) */}
             <Card className="mt-5 card-provide">
-                <Card.Header><div className="title">{token1}</div></Card.Header>
+                <Card.Header><div className="title">Add Liquidity</div></Card.Header>
                 <Card.Body>
                     <Card.Title className="mb-2">ETH/DRG</Card.Title>
                     <Card.Text>
                         <div className="input-field d-flex pb-2">
                             <div className='w-25'>ETH</div>
                             <div className='w-75'>
-                                <input type="number" placeholder="Enter amount of token 1..." name="token1" id="token1" style={{ width: "100%" }} />
+                                <input type="number" placeholder="Enter amount of token 1..." name="token1" min="1" id="token1" style={{ width: "100%" }} />
                             </div>
                         </div>
                         <div className="input-field d-flex pb-2">
                             <div className='w-25'>DRG</div>
                             <div className='w-75'>
-                                <input type="number" placeholder="Enter amount of token 2..." name="token2" id="token2" style={{ width: "100%" }} />
+                                <input type="number" placeholder="Enter amount of token 2..." name="token2" min="1" id="token2" style={{ width: "100%" }} />
                             </div>
                         </div>
                         <div className="d-flex justify-content-around m-3">
                             {/* <div className='info-card'>
-                                <div>0.0001</div>
-                                <div>ETH per DRG</div>
+                                <div><strong>Total Token 1</strong></div>
+                                <div>{totalAmount1}</div>
                             </div>
                             <div className='info-card'>
-                                <div>0.0001</div>
-                                <div>DRG per ETH</div>
+                                <div><strong>Total Token 2</strong></div>
+                                <div>{totalAmount2}</div>
                             </div> */}
                             <div className='info-card'>
-                                <div><strong>Liquidty Token</strong></div>
-                                <div>0.25%</div>
+                                <div><strong>Liquidty Token Returned</strong></div>
+                                <div>{LPTokenReturned}</div>
                             </div>
                         </div>
                     </Card.Text>
