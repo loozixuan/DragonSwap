@@ -12,7 +12,7 @@ import Web3 from "web3";
 
 
 export default function Header() {
-    // // usetstate for storing and retrieving wallet details
+    // usetstate for storing and retrieving wallet details
     const [data, setdata] = useState({
         address: "",
         Balance: null,
@@ -20,7 +20,7 @@ export default function Header() {
 
     // Button handler button for handling a
     // request event for metamask
-    async function btnhandler() {
+    async function btnhandler(e) {
 
         // Asking if metamask is already present or not
         if (window.ethereum) {
@@ -29,6 +29,7 @@ export default function Header() {
             await window.ethereum
                 .request({ method: "eth_requestAccounts" })
                 .then((res) => accountChangeHandler(res[0]));
+            localStorage.setItem('isWalletConnected', true);
 
             document.getElementById("btn-connect").style.display = "none";
         }
@@ -72,6 +73,43 @@ export default function Header() {
     };
 
 
+    // const { active, account, library, activate, deactivate } = useWeb3React()
+    // async function connect() {
+    //     try {
+    //         await activate(injected);
+    //         localStorage.setItem('isWalletConnected', true);
+    //         document.getElementById("btn-connect").style.display = "none";
+    //     } catch (ex) {
+    //         console.log(ex)
+    //     }
+    // }
+    // async function disconnect() {
+    //     try {
+    //         deactivate()
+    //         localStorage.setItem('isWalletConnected', false);
+    //     } catch (ex) {
+    //         console.log(ex)
+    //     }
+    // }
+
+    useEffect(() => {
+        const connectWalletOnPageLoad = async () => {
+            if (localStorage?.getItem('isWalletConnected') === 'true') {
+                try {
+                    await window.ethereum
+                        .request({ method: "eth_requestAccounts" })
+                        .then((res) => accountChangeHandler(res[0]));
+                    localStorage.setItem('isWalletConnected', true);
+
+                    document.getElementById("btn-connect").style.display = "none";
+                    // document.getElementById("btn-connect").style.display = "none";
+                } catch (ex) {
+                    console.log(ex)
+                }
+            }
+        }
+        connectWalletOnPageLoad()
+    }, [])
 
     return (
         <header>
@@ -93,7 +131,6 @@ export default function Header() {
 
                 <div id="address" className="text-white p-3"></div>
             </Navbar>
-            <div><strong>Balance: </strong>
-                {data.Balance}</div>
+
         </header>);
 }

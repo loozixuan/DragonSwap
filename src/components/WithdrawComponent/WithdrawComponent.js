@@ -17,13 +17,13 @@ export default function WithdrawComponent() {
         console.log(accounts)
         // this.setState({ account: accounts[0] })  //error
 
-        console.log(DragonSwap.abi, DragonSwap.networks[5777].address)
+        // console.log(DragonSwap.abi, DragonSwap.networks[5777].address)
         const networkId = await web3.eth.net.getId()
-        //console.log(networkId)
+
         const networkData = DragonSwap.networks[networkId]
         if (networkData) {
             const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
-            // this.setState({ marketplace })
+
             console.log('Marketplace' + dragonswap)
             const tokenCount = await dragonswap.methods.token1().call()
             console.log("product:" + tokenCount.toString())
@@ -40,6 +40,8 @@ export default function WithdrawComponent() {
         //const marketplace = new web3.eth.Contract(abi, address)
         //console.log(marketplace)
     }
+
+
 
     return (
         <div >

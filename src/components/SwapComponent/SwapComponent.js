@@ -5,8 +5,41 @@ import { AiOutlineDown } from "react-icons/ai";
 import ethLogo from '../../images/eth.jpeg';
 import Header from '../Header/Header.js';
 import '../SwapComponent/SwapComponent.css';
+import DragonSwap from '../../abis/DragonSwap.json'
 
 export default function SwapComponent() {
+
+        //load the metamask account and display on web page
+        async function loadBlockchainData() {
+            const web3 = window.web3
+            //load account
+            const accounts = await web3.eth.getAccounts()
+            console.log(accounts)
+            // this.setState({ account: accounts[0] })  //error
+    
+           // console.log(DragonSwap.abi, DragonSwap.networks[5777].address)
+            const networkId = await web3.eth.net.getId()
+           
+            const networkData = DragonSwap.networks[networkId]
+            if (networkData) {
+                const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
+                // this.setState({ marketplace })
+                console.log('Marketplace' + dragonswap)
+                const tokenCount = await dragonswap.methods.token1().call()
+                console.log("product:" + tokenCount.toString())
+    
+            } else {
+                window.alert('Marketplace contract not deployed to detected network')
+    
+            }
+    
+            //const abi = Marketplace.abi
+            //const address = Marketplace.networks[5777].address
+            //make it dynamic to get network ID
+            //const address = Marketplace.networks[networkId].address
+            //const marketplace = new web3.eth.Contract(abi, address)
+            //console.log(marketplace)
+        }
     return (
         <div style={{height: "100vh",background: "#F8F8F8" }}>
             <Header />
