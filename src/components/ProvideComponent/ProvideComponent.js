@@ -8,9 +8,9 @@ export default function ProvideComponent() {
     let [token1, setToken1] = useState(9);
     //load the metamask account and display on web page
     async function loadBlockchainData() {
-        const web3 = window.web3
+        const web3 = new Web3(window.web3.currentProvider);
         //load account
-        const accounts = await web3.eth.getAccounts()
+        const accounts = await web3.eth.requestAccounts()
         // console.log(accounts)
 
         // console.log(DragonSwap.abi, DragonSwap.networks[5777].address)
@@ -38,10 +38,10 @@ export default function ProvideComponent() {
             var amount_token_1 = parseInt(document.getElementById("token1").value);
             var amount_token_2 = parseInt(document.getElementById("token2").value);
 
-            dragonswap.methods.provideLiquidity(amount_token_1,amount_token_2).send({from: accounts[0]})
+            dragonswap.methods.provideLiquidity(amount_token_1, amount_token_2).send({ from: accounts[0] })
                 .then(function (receipt) {
-                   console.log(receipt)
-            });
+                    console.log(receipt)
+                });
 
         } else {
             window.alert('DragonSwap contract not deployed to detected network')
