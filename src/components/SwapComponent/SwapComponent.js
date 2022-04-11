@@ -6,6 +6,7 @@ import ethLogo from '../../images/eth.jpeg';
 import Header from '../Header/Header.js';
 import '../SwapComponent/SwapComponent.css';
 import DragonSwap from '../../abis/DragonSwap.json'
+import Logo from '../../images/dragon_swap.png';
 
 export default function SwapComponent() {
 
@@ -55,8 +56,9 @@ export default function SwapComponent() {
                         <input
                             type='text'
                             className="transferPropInput"
-                            placeholder='0.0'
+                            placeholder='Enter amount of ETH...'
                             pattern='^[0-9]*[.,]?[0-9]*$'
+                            style={{textIndent: '10px'}}
                             // onChange={e => handleChange(e, 'amount')}
                         />
                         <div className="currencySelector">
@@ -65,7 +67,7 @@ export default function SwapComponent() {
                                     <img className="ethLogo" src={ethLogo} alt='eth logo' />
                                 </div>
                                 <div className="currencySelectorTicker">ETH</div>
-                                <AiOutlineDown className="currencySelectorArrow" />
+                                {/* <AiOutlineDown className="currencySelectorArrow" /> */}
                             </div>
                         </div>
                     </div>
@@ -73,13 +75,17 @@ export default function SwapComponent() {
                         <input
                             type='text'
                             className="transferPropInput"
-                            placeholder='0x...'
+                            placeholder='Enter amount of DRG ...'
+                            style={{textIndent: '10px'}}
                             // onChange={e => handleChange(e, 'addressTo')}
                         />
                         <div className="currencySelector">
                             <div className="currencySelectorContent">
-                                <div className="currencySelectorTicker">Select a Token</div>
-                                <AiOutlineDown className="currencySelectorArrow" />
+                                <div className="currencySelectorIcon">
+                                    <img className="ethLogo" src={Logo} alt='eth logo' />
+                                </div>
+                                <div className="currencySelectorTicker">DRG</div>
+                                {/* <AiOutlineDown className="currencySelectorArrow" /> */}
                             </div>
                         </div>
                     </div>
