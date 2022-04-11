@@ -85,8 +85,9 @@ export default function WithdrawComponent() {
             const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
             // Provide Liquidity
             var amount_token_1 = parseInt(document.getElementById("token1").value);
+            let totalLPToken = parseInt(document.getElementById("totalLPToken").value);
             console.log(amount_token_1);
-            if (amount_token_1 > 0) {
+            if (amount_token_1 > 0 && amount_token_1 <= totalLPToken) {
                 dragonswap.methods.withdraw(amount_token_1).send({ from: accounts[0] })
                     .then(function (receipt) {
                         console.log(receipt)
@@ -95,7 +96,7 @@ export default function WithdrawComponent() {
                     });
 
             } else {
-                window.alert('Please enter the amount.')
+                window.alert('Please enter a valid amount.')
             }
 
         } else {
