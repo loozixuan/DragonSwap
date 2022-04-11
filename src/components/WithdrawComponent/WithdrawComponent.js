@@ -123,7 +123,7 @@ export default function WithdrawComponent() {
                             <div className="float:right">0.3%</div>
                         </div> */}
                         <InputGroup className="mb-3">
-                            <InputGroup.Text id="basic-addon1">ERC-20</InputGroup.Text>
+                            <InputGroup.Text id="basic-addon1" style={{width: '22%'}}>LP Token(s)</InputGroup.Text>
                             <FormControl
                                 type="text"
                                 placeholder="Enter LP Token to withdraw..."
@@ -155,8 +155,8 @@ export default function WithdrawComponent() {
                                 <div>{totaltoken2}</div>
                             </div>
                             <div className='info-card'>
-                                <div><strong>LP Token returned</strong></div>
-                                <div style={{ fontStyle: 'italic' }}>{poolLPToken}</div>
+                                <div><strong>Total LP Token in pool</strong></div>
+                                <div>{poolLPToken}</div>
                             </div>
                         </div>
 
