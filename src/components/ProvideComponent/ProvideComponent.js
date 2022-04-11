@@ -60,8 +60,10 @@ export default function ProvideComponent() {
 
                 dragonswap.methods.provideLiquidity(amount_token_1, amount_token_2).send({ from: accounts[0] })
                     .then(function (receipt) {
-                        console.log(receipt)
-                    });
+                        // console.log(receipt)
+                        alert('Liquidity added successfully')
+                        window.location.reload()
+                    });   
             }
         } else {
             window.alert('DragonSwap contract not deployed to detected network')
