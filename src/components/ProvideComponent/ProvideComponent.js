@@ -31,13 +31,14 @@ export default function ProvideComponent() {
                     token1balances = settoken1balances(result[0])
                     token2balances = settoken2balances(result[1])
                 });
+
             }
         }
         getDataOnPageLoad()
     }, [])
 
     //load the metamask account and display on web page
-    async function loadBlockchainData() {
+    async function addLiquidity() {
         const web3 = new Web3(window.web3.currentProvider);
         const accounts = await web3.eth.requestAccounts()
         const networkId = await web3.eth.net.getId()
@@ -50,14 +51,20 @@ export default function ProvideComponent() {
             var amount_token_1 = parseInt(document.getElementById("token1").value);
             var amount_token_2 = parseInt(document.getElementById("token2").value);
 
-            dragonswap.methods.LPToken(amount_token_1, amount_token_2).call(function (error, result) {
-                LPTokenReturned = setLPTokenReturned(result);
-            });
-
-            dragonswap.methods.provideLiquidity(amount_token_1, amount_token_2).send({ from: accounts[0] })
-                .then(function (receipt) {
-                    console.log(receipt)
+            if (amount_token_1 == 0 || amount_token_2 == 0 || Number.isNaN(amount_token_1) || Number.isNaN(amount_token_2)) {
+                alert('Please ensure ETH input field and DRG input is not empty or 0')
+            } else {
+                dragonswap.methods.LPToken(amount_token_1, amount_token_2).call(function (error, result) {
+                    LPTokenReturned = setLPTokenReturned(result);
                 });
+
+                dragonswap.methods.provideLiquidity(amount_token_1, amount_token_2).send({ from: accounts[0] })
+                    .then(function (receipt) {
+                        // console.log(receipt)
+                        alert('Liquidity added successfully')
+                        window.location.reload()
+                    });   
+            }
         } else {
             window.alert('DragonSwap contract not deployed to detected network')
         }
@@ -97,11 +104,11 @@ export default function ProvideComponent() {
                             </div>
                             <div className='info-card'>
                                 <div><strong>LP Token returned</strong></div>
-                                <div style={{fontStyle: 'italic'}}>{LPTokenReturned}</div>
+                                <div style={{ fontStyle: 'italic' }}>{LPTokenReturned}</div>
                             </div>
                         </div>
                     </Card.Text>
-                    <Button variant="warning" className="add-liquidity-button" onClick={loadBlockchainData}>Add Liquidity</Button>
+                    <Button variant="warning" className="add-liquidity-button" onClick={addLiquidity}>Add Liquidity</Button>
                 </Card.Body>
             </Card>
         </div>
