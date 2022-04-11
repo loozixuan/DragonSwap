@@ -99,7 +99,6 @@ export default function SwapComponent() {
                             style={{ textIndent: '10px' }}
                             onChange={handleToken2Change}
                             id="token2"
-                            onChange={handleToken1Change}
                         // onChange={e => handleChange(e, 'addressTo')}
                         />
                         <div className="currencySelector">
