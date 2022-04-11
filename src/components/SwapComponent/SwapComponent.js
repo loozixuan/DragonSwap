@@ -7,6 +7,7 @@ import Header from '../Header/Header.js';
 import '../SwapComponent/SwapComponent.css';
 import DragonSwap from '../../abis/DragonSwap.json'
 import Web3 from 'web3';
+import Logo from '../../images/dragon_swap.png';
 
 export default function SwapComponent() {
 
@@ -36,71 +37,64 @@ export default function SwapComponent() {
     }
 
     return (
-        <div style={{ height: "100vh", background: "#F8F8F8" }}>
+        <div style={{height: "100vh",background: "#F8F8F8" }}>
             <Header />
-            <form onSubmit={(event) => {
-          event.preventDefault()
-          const name = this.token1.value
-          const price = window.web3.utils.toWei(this.token1.value.toString(), 'Ether')
-          this.props.createProduct(name, price)
-
-        }}>
-                <div className="wrapper">
-
-                    <div className="content">
-                        <div className="formHeader">
-                            <div>Swap</div>
-                            <div>
-                                <RiSettings3Fill />
-                            </div>
+            <div className="wrapper">
+                <div className="content">
+                    <div className="formHeader">
+                        <div>Swap</div>
+                        <div>
+                            <RiSettings3Fill />
                         </div>
-                        <div className="transferPropContainer">
-                            <input
-                                type='number'
-                                className="transferPropInput"
-                                placeholder='0.0'
-                                pattern='^[0-9]*[.,]?[0-9]*$'
-                                id="productPrice"
-                               // ref={(input) => { this.token1 = input }}
-                            // onChange={e => handleChange(e, 'amount')}
-                            />
-                            <div className="currencySelector">
-                                <div className="currencySelectorContent">
-                                    <div className="currencySelectorIcon">
-                                        <img className="ethLogo" src={ethLogo} alt='eth logo' />
-                                    </div>
-                                    <div className="currencySelectorTicker">ETH</div>
-                                    <AiOutlineDown className="currencySelectorArrow" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="transferPropContainer">
-                            <input
-                                type='text'
-                                className="transferPropInput"
-                                placeholder='0x...'
-                            // onChange={e => handleChange(e, 'addressTo')}
-                            />
-                            <div className="currencySelector">
-                                <div className="currencySelectorContent">
-                                    <div className="currencySelectorTicker">Select a Token</div>
-                                    <AiOutlineDown className="currencySelectorArrow" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="confirmButton">
-                            Confirm
-                        </div>
-                        {/* <div onClick={e => handleSubmit(e)} className={style.confirmButton}>
-                     Confirm
-                 </div> */}
                     </div>
-                    {/* <Modal isOpen={!!router.query.loading} style={customStyles}>
-                 <TransactionLoader />
-             </Modal> */}
+                    <div className="transferPropContainer">
+                        <input
+                            type='text'
+                            className="transferPropInput"
+                            placeholder='Enter amount of ETH...'
+                            pattern='^[0-9]*[.,]?[0-9]*$'
+                            style={{textIndent: '10px'}}
+                            // onChange={e => handleChange(e, 'amount')}
+                        />
+                        <div className="currencySelector">
+                            <div className="currencySelectorContent">
+                                <div className="currencySelectorIcon">
+                                    <img className="ethLogo" src={ethLogo} alt='eth logo' />
+                                </div>
+                                <div className="currencySelectorTicker">ETH</div>
+                                {/* <AiOutlineDown className="currencySelectorArrow" /> */}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="transferPropContainer">
+                        <input
+                            type='text'
+                            className="transferPropInput"
+                            placeholder='Enter amount of DRG ...'
+                            style={{textIndent: '10px'}}
+                            // onChange={e => handleChange(e, 'addressTo')}
+                        />
+                        <div className="currencySelector">
+                            <div className="currencySelectorContent">
+                                <div className="currencySelectorIcon">
+                                    <img className="ethLogo" src={Logo} alt='eth logo' />
+                                </div>
+                                <div className="currencySelectorTicker">DRG</div>
+                                {/* <AiOutlineDown className="currencySelectorArrow" /> */}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="confirmButton">
+                        Confirm
+                    </div>
+                    {/* <div onClick={e => handleSubmit(e)} className={style.confirmButton}>
+                        Confirm
+                    </div> */}
                 </div>
-            </form>
-
+                {/* <Modal isOpen={!!router.query.loading} style={customStyles}>
+                    <TransactionLoader />
+                </Modal> */}
+            </div>
         </div>
     );
 }
