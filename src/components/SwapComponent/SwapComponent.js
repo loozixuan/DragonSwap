@@ -77,6 +77,8 @@ export default function SwapComponent() {
                             pattern='^[0-9]*[.,]?[0-9]*$'
                             style={{ textIndent: '10px' }}
                             id="token1"
+                           
+
                         // onChange={e => handleChange(e, 'amount')}
                         />
                         <div className="currencySelector">
@@ -97,6 +99,7 @@ export default function SwapComponent() {
                             style={{ textIndent: '10px' }}
                             onChange={handleToken2Change}
                             id="token2"
+                            onChange={handleToken1Change}
                         // onChange={e => handleChange(e, 'addressTo')}
                         />
                         <div className="currencySelector">

@@ -33,12 +33,6 @@ export default function WithdrawComponent() {
 
         }
 
-        //const abi = Marketplace.abi
-        //const address = Marketplace.networks[5777].address
-        //make it dynamic to get network ID
-        //const address = Marketplace.networks[networkId].address
-        //const marketplace = new web3.eth.Contract(abi, address)
-        //console.log(marketplace)
     }
 
 
