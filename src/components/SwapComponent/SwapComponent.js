@@ -37,6 +37,10 @@ export default function SwapComponent() {
         }
     }
 
+    // handleTokenValue1(value){
+ 
+    // }
+
     return (
         <div style={{ height: "100vh", background: "#F8F8F8" }}>
             <Header />
@@ -56,6 +60,8 @@ export default function SwapComponent() {
                             pattern='^[0-9]*[.,]?[0-9]*$'
                             style={{ textIndent: '10px' }}
                             id="token1"
+                            value={this.state.token1}
+                            onChange={e => this.handleTokenValue1(e.target.value)}
                         // onChange={e => handleChange(e, 'amount')}
                         />
                         <div className="currencySelector">
