@@ -131,6 +131,7 @@ export default function Header() {
 
                 <div id="address" className="text-white p-3"></div>
             </Navbar>
-
+            <strong>Balance: </strong>
+            {data.Balance}
         </header>);
 }
