@@ -28,17 +28,13 @@ contract DragonSwap{
     LiquidityPool public liquidityPool;     // represent the pool
 
     constructor(){
-        token1 = new ERC20Basic();
-        token2 = new ERC20Basic();
         liquidityPool.total_token_1 = 100; // 10 Ether
         liquidityPool.total_token_2 = 250; // 10 Ether
-        name1 = token1.name();
-        name2 = token2.name();
         liquidityPool.K = token1.balanceOf(address(this)) * token2.balanceOf(address(this));    // 10 ** 36 - constant 
         token_1_balance[msg.sender] = 10000;
         token_2_balance[msg.sender] = 10000;
         liquidityPool.total_LPTokens=liquidityPool.total_token_1 +liquidityPool.total_token_2;
-         LP_Tokens[msg.sender]=12;
+        LP_Tokens[msg.sender]=12;
     }
 
     // Ensures that the _qty is non-zero and the user has enough balance
@@ -75,18 +71,8 @@ contract DragonSwap{
         LP_Token = LP_Tokens[msg.sender];
     }
 
-    // Returns amount of Token1 required when providing liquidity with _amountToken2 quantity of Token2
-    function getEquivalentToken1Estimate(uint256 _amountToken2) public view activePool returns(uint256 reqToken1) {
-        reqToken1 = liquidityPool.total_token_1.mul(_amountToken2).div(liquidityPool.total_token_2);
-    }
-
-    // Returns amount of Token2 required when providing liquidity with _amountToken1 quantity of Token1
-    function getEquivalentToken2Estimate(uint256 _amountToken1) public view activePool returns(uint256 reqToken2) {
-        reqToken2 = liquidityPool.total_token_2.mul(_amountToken1).div(liquidityPool.total_token_1);
-    }
-
     /* Provide more token 1 and token 2 into the pool - Expands the pool
-    ** 1. Calculate LP token for LP provider such that token 1 and token 2 give the equivalent value 
+    ** 1. Calculate LP token for LP provider 
     ** 2. Reduce amount token1 and token2 from user balances
     ** 3. Increase the total amount token 1 and token 2
     ** 4. Calculate new constant
@@ -146,14 +132,6 @@ contract DragonSwap{
         if(amountToken2 == liquidityPool.total_token_2) amountToken2--;
     }
     
-    // Returns the amount of Token1 that the user should swap to get _amountToken2 in return
-    function getSwapToken1EstimateGivenToken2(uint256 _amountToken2) public view activePool returns(uint256 amountToken1) {
-        require(_amountToken2 < liquidityPool.total_token_2, "Insufficient pool balance");
-        uint256 token2After = liquidityPool.total_token_2.sub(_amountToken2);
-        uint256 token1After = liquidityPool.K.div(token2After);
-        amountToken1 = token1After.sub(liquidityPool.total_token_1);
-    }
-
     // Swaps given amount of Token1 to Token2 using algorithmic price determination
     function swapToken1(uint256 _amountToken1) external activePool validAmountCheck(token_1_balance, _amountToken1) returns(uint256 amountToken2) {
         amountToken2 = getSwapToken1Estimate(_amountToken1);
@@ -174,14 +152,6 @@ contract DragonSwap{
         if(amountToken1 == liquidityPool.total_token_1) amountToken1--;
     }
     
-    // Returns the amount of Token2 that the user should swap to get _amountToken1 in return
-    function getSwapToken2EstimateGivenToken1(uint256 _amountToken1) public view activePool returns(uint256 amountToken2) {
-        require(_amountToken1 < liquidityPool.total_token_1, "Insufficient pool balance");
-        uint256 token1After = liquidityPool.total_token_1.sub(_amountToken1);
-        uint256 token2After = liquidityPool.K.div(token1After);
-        amountToken2 = token2After.sub(liquidityPool.total_token_2);
-    }
-
     // Swaps given amount of Token2 to Token1 using algorithmic price determination
     function swapToken2(uint256 _amountToken2) external activePool validAmountCheck(token_2_balance, _amountToken2) returns(uint256 amountToken1) {
         amountToken1 = getSwapToken2Estimate(_amountToken2);
