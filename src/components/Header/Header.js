@@ -6,8 +6,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { Button, Card } from "react-bootstrap";
 import { ethers } from "ethers";
-import { useWeb3React } from "@web3-react/core";
-import { injected } from "../../wallet/Connect";
 import Web3 from "web3";
 
 
@@ -100,7 +98,7 @@ export default function Header() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="/pool">Pool</Nav.Link>
+                        <Nav.Link href="/">Pool</Nav.Link>
                         <Nav.Link href="/swap">Swap</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
@@ -110,7 +108,5 @@ export default function Header() {
 
                 <div id="address" className="text-white p-3"></div>
             </Navbar>
-            {/* <strong>Balance: </strong>
-            {data.Balance} */}
         </header>);
 }

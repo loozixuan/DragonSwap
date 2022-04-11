@@ -9,7 +9,6 @@ import Web3 from 'web3';
 
 export default function WithdrawComponent() {
 
-    let [enteredToken, setEnteredToken] = useState(0);
     let [totaltoken1, settotaltoken1] = useState(0);
     let [totaltoken2, settotaltoken2] = useState(0);
     let [totalLPToken, settotalLPToken] = useState(0);
@@ -119,10 +118,6 @@ export default function WithdrawComponent() {
                             <div className="">{totalLPToken}</div>
                             <input type="hidden" value={totalLPToken} id="totalLPToken" />
                         </div>
-                        {/* <div className="pool-share">
-                            <div className='label'>Your pool share :</div>
-                            <div className="float:right">0.3%</div>
-                        </div> */}
                         <InputGroup className="mb-3">
                             <InputGroup.Text id="basic-addon1" style={{width: '22%'}}>LP Token(s)</InputGroup.Text>
                             <FormControl

@@ -112,11 +112,6 @@ export default function ProvideComponent() {
                             <div>{LPToken}</div>
                         </div>
                     </div>
-                        {/* <div className='d-flex flex-column pb-2'>
-                            <span>Your ETH token balance : <strong>{token1balances}</strong></span>
-                            <span>Your DRG token balance : <strong>{token2balances}</strong></span>
-                            <span>Your LP Token(s) : <strong>{LPToken}</strong></span>
-                        </div> */}
                         <div className='mb-2'><strong>Provide your liquidity here</strong></div>
                         <div className="input-field d-flex pb-2">
                             <div className='w-25'>ETH</div>

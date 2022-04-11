@@ -9,7 +9,7 @@ import './ContainerComponent.css';
 
 export default function ProvideComponent() {
     return (
-        <div style={{background: "#F8F8F8" }}>
+        <div style={{ background: "#F8F8F8" }}>
             <Header />
 
             <div className='d-block mx-auto w-75 p-5'>
@@ -25,7 +25,7 @@ export default function ProvideComponent() {
                         </div>
                     </TabPanel>
                     <TabPanel>
-                        <div><WithdrawLiquidity/></div>
+                        <div><WithdrawLiquidity /></div>
                     </TabPanel>
                 </Tabs>
             </div>

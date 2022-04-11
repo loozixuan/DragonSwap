@@ -1,7 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-// import Image from 'next/image';
 import { RiSettings3Fill } from 'react-icons/ri';
-import { AiOutlineDown } from "react-icons/ai";
 import ethLogo from '../../images/eth.jpeg';
 import Header from '../Header/Header.js';
 import '../SwapComponent/SwapComponent.css';
