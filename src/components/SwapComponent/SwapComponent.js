@@ -76,6 +76,7 @@ export default function SwapComponent() {
                 dragonswap.methods.swapToken2(amount_token_2).send({ from: accounts[0] })
                     .then(function (receipt) {
                         console.log(receipt)
+                        alert('Swap successfully')
                     });
             }
         } else {
@@ -98,6 +99,7 @@ export default function SwapComponent() {
                 dragonswap.methods.swapToken1(amount_token_1).send({ from: accounts[0] })
                     .then(function (receipt) {
                         console.log(receipt)
+                        alert('Swap successfully')
                     });
             }
         } else {
