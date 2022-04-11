@@ -11,10 +11,10 @@ export default function WithdrawComponent() {
 
     //load the metamask account and display on web page
     async function loadBlockchainData() {
-        const web3 = window.web3
+        const web3 = new Web3(window.web3.currentProvider);
         //load account
-        const accounts = await web3.eth.getAccounts()
-        console.log(accounts)
+        const accounts = await web3.eth.requestAccounts()
+        
         // this.setState({ account: accounts[0] })  //error
 
         // console.log(DragonSwap.abi, DragonSwap.networks[5777].address)
@@ -64,6 +64,9 @@ export default function WithdrawComponent() {
                         <InputGroup className="mb-3">
                             <InputGroup.Text id="basic-addon1">ERC-20</InputGroup.Text>
                             <FormControl
+                              id="productName"
+                              type="text"
+                              ref={(input) => { this.productName = input }}
                                 placeholder=""
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"

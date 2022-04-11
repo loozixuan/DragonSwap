@@ -6,8 +6,8 @@ import ethLogo from '../../images/eth.jpeg';
 import Header from '../Header/Header.js';
 import '../SwapComponent/SwapComponent.css';
 import DragonSwap from '../../abis/DragonSwap.json'
+import Web3 from 'web3';
 import Logo from '../../images/dragon_swap.png';
-import Web3 from "web3";
 
 export default function SwapComponent() {
     //load the metamask account and display on web page
