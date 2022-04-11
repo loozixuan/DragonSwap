@@ -11,6 +11,7 @@ import Logo from '../../images/dragon_swap.png';
 
 export default function SwapComponent() {
 
+
     useEffect(() => {
         document.getElementById('swapToken2').style.display = "none";
         document.getElementById('swapToken1').style.display = "block";
@@ -28,7 +29,7 @@ export default function SwapComponent() {
 
             var amount_token_1 = parseInt(document.getElementById("token1").value);
             dragonswap.methods.getSwapToken1Estimate(amount_token_1).call(function (error, result) {
-                // console.log(result)
+                console.log(result)
                 document.getElementById('token2').value = result
             });
 
@@ -69,13 +70,13 @@ export default function SwapComponent() {
             const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
 
             var amount_token_2 = parseInt(document.getElementById("token2").value);
-            if(amount_token_2 <= 0 ){
+            if (amount_token_2 <= 0) {
                 alert('The amount of token DRG must exceed 0')
-            }else{
-            dragonswap.methods.swapToken2(amount_token_2).send({ from: accounts[0] })
-                .then(function (receipt) {
-                    console.log(receipt)
-                });
+            } else {
+                dragonswap.methods.swapToken2(amount_token_2).send({ from: accounts[0] })
+                    .then(function (receipt) {
+                        console.log(receipt)
+                    });
             }
         } else {
             window.alert('DragonSwap contract not deployed to detected network')
@@ -91,13 +92,13 @@ export default function SwapComponent() {
         if (networkData) {
             const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
             var amount_token_1 = parseInt(document.getElementById("token1").value);
-            if(amount_token_1 <= 0 ){
+            if (amount_token_1 <= 0) {
                 alert('The amount of token ETH must exceed 0')
-            }else{
-            dragonswap.methods.swapToken1(amount_token_1).send({ from: accounts[0] })
-                .then(function (receipt) {
-                    console.log(receipt)
-                });
+            } else {
+                dragonswap.methods.swapToken1(amount_token_1).send({ from: accounts[0] })
+                    .then(function (receipt) {
+                        console.log(receipt)
+                    });
             }
         } else {
             window.alert('DragonSwap contract not deployed to detected network')
@@ -119,7 +120,7 @@ export default function SwapComponent() {
                             type='number'
                             className="transferPropInput"
                             placeholder='Enter amount of ETH...'
-                            pattern='^[0-9]*[.,]?[0-9]*$'
+                            pattern='^[0-9][.,]?[0-9]$'
                             style={{ textIndent: '10px' }}
                             id="token1"
                             onChange={handleToken1Change}

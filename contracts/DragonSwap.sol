@@ -37,6 +37,8 @@ contract DragonSwap{
         liquidityPool.K = token1.balanceOf(address(this)) * token2.balanceOf(address(this));    // 10 ** 36 - constant 
         token_1_balance[msg.sender] = 10000;
         token_2_balance[msg.sender] = 10000;
+        liquidityPool.total_LPTokens=liquidityPool.total_token_1 +liquidityPool.total_token_2;
+         LP_Tokens[msg.sender]=12;
     }
 
     // Ensures that the _qty is non-zero and the user has enough balance
@@ -50,6 +52,10 @@ contract DragonSwap{
     modifier activePool() {
         require(liquidityPool.K > 0, "Zero Liquidity");
         _;
+    }
+
+    function getProviderLPToken() external view returns(uint256){
+        return LP_Tokens[msg.sender];
     }
 
     // Returns the total amount of tokens locked in the pool and the total shares issued corresponding to it
@@ -105,11 +111,12 @@ contract DragonSwap{
     }
 
     // Returns the estimate of Token1 & Token2 that will be released on burning given _LPToken
-    function getWithdrawTokenEstimate(uint256 _LPToken) public view activePool returns(uint256 amountToken1, uint256 amountToken2) {
+     function getWithdrawTokenEstimate(uint256 _LPToken) public view returns(uint256 amountToken1, uint256 amountToken2) {
         require(_LPToken <=LP_Tokens[msg.sender] , "Entered LP Token should be less than total LP Token of provider");
         amountToken1 = _LPToken.mul(liquidityPool.total_token_1).div(liquidityPool.total_LPTokens); //used entered token, provider may not withdraw all the coin
         amountToken2 = _LPToken.mul(liquidityPool.total_token_2).div(liquidityPool.total_LPTokens);
     }
+
 
     // Removes liquidity from the pool and releases corresponding Token1 & Token2 to the withdrawer
     // _LPToken :entered by provider
