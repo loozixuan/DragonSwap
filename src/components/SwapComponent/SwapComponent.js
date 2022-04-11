@@ -20,11 +20,10 @@ export default function SwapComponent() {
             console.log(networkData)
             const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
 
-            var amount_token_1 = parseInt(document.getElementById("token1").value);
             var amount_token_2 = parseInt(document.getElementById("token2").value);
-            dragonswap.methods.getSwapToken2Estimate(amount_token_1).call(function (error, result) {
+            dragonswap.methods.getSwapToken2Estimate(amount_token_2).call(function (error, result) {
                 console.log(result)
-                document.getElementById('token2').value = result
+                document.getElementById('token1').value = result
             });
 
         } else {
@@ -77,7 +76,6 @@ export default function SwapComponent() {
                             placeholder='Enter amount of ETH...'
                             pattern='^[0-9]*[.,]?[0-9]*$'
                             style={{ textIndent: '10px' }}
-                            onChange={handleToken2Change}
                             id="token1"
                         // onChange={e => handleChange(e, 'amount')}
                         />
@@ -97,6 +95,7 @@ export default function SwapComponent() {
                             className="transferPropInput"
                             placeholder='Enter amount of DRG ...'
                             style={{ textIndent: '10px' }}
+                            onChange={handleToken2Change}
                             id="token2"
                         // onChange={e => handleChange(e, 'addressTo')}
                         />
