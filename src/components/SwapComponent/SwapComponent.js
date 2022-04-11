@@ -7,42 +7,38 @@ import Header from '../Header/Header.js';
 import '../SwapComponent/SwapComponent.css';
 import DragonSwap from '../../abis/DragonSwap.json'
 import Logo from '../../images/dragon_swap.png';
+import Web3 from "web3";
 
 export default function SwapComponent() {
+    //load the metamask account and display on web page
+    async function loadBlockchainData() {
+        const web3 = new Web3(window.web3.currentProvider);
+        const accounts = await web3.eth.requestAccounts()
+        const networkId = await web3.eth.net.getId()
+        const networkData = DragonSwap.networks[networkId]
 
-        //load the metamask account and display on web page
-        async function loadBlockchainData() {
-            const web3 = window.web3
-            //load account
-            const accounts = await web3.eth.getAccounts()
-            console.log(accounts)
-            // this.setState({ account: accounts[0] })  //error
-    
-           // console.log(DragonSwap.abi, DragonSwap.networks[5777].address)
-            const networkId = await web3.eth.net.getId()
-           
-            const networkData = DragonSwap.networks[networkId]
-            if (networkData) {
-                const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
-                // this.setState({ marketplace })
-                console.log('Marketplace' + dragonswap)
-                const tokenCount = await dragonswap.methods.token1().call()
-                console.log("product:" + tokenCount.toString())
-    
-            } else {
-                window.alert('Marketplace contract not deployed to detected network')
-    
-            }
-    
-            //const abi = Marketplace.abi
-            //const address = Marketplace.networks[5777].address
-            //make it dynamic to get network ID
-            //const address = Marketplace.networks[networkId].address
-            //const marketplace = new web3.eth.Contract(abi, address)
-            //console.log(marketplace)
+        if (networkData) {
+            const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
+
+            // Provide Liquidity
+            var amount_token_1 = parseInt(document.getElementById("token1").value);
+            var amount_token_2 = parseInt(document.getElementById("token2").value);
+
+            dragonswap.methods.LPToken(amount_token_1, amount_token_2).call(function (error, result) {
+
+            });
+
+            dragonswap.methods.provideLiquidity(amount_token_1, amount_token_2).send({ from: accounts[0] })
+                .then(function (receipt) {
+                    console.log(receipt)
+                });
+        } else {
+            window.alert('DragonSwap contract not deployed to detected network')
         }
+    }
+
     return (
-        <div style={{height: "100vh",background: "#F8F8F8" }}>
+        <div style={{ height: "100vh", background: "#F8F8F8" }}>
             <Header />
             <div className="wrapper">
                 <div className="content">
@@ -58,8 +54,9 @@ export default function SwapComponent() {
                             className="transferPropInput"
                             placeholder='Enter amount of ETH...'
                             pattern='^[0-9]*[.,]?[0-9]*$'
-                            style={{textIndent: '10px'}}
-                            // onChange={e => handleChange(e, 'amount')}
+                            style={{ textIndent: '10px' }}
+                            id="token1"
+                        // onChange={e => handleChange(e, 'amount')}
                         />
                         <div className="currencySelector">
                             <div className="currencySelectorContent">
@@ -76,8 +73,9 @@ export default function SwapComponent() {
                             type='text'
                             className="transferPropInput"
                             placeholder='Enter amount of DRG ...'
-                            style={{textIndent: '10px'}}
-                            // onChange={e => handleChange(e, 'addressTo')}
+                            style={{ textIndent: '10px' }}
+                            id="token2"
+                        // onChange={e => handleChange(e, 'addressTo')}
                         />
                         <div className="currencySelector">
                             <div className="currencySelectorContent">
