@@ -10,8 +10,29 @@ import Web3 from 'web3';
 import Logo from '../../images/dragon_swap.png';
 
 export default function SwapComponent() {
-    //load the metamask account and display on web page
-    async function loadBlockchainData() {
+
+    const handleToken2Change = async (e) => {
+        const web3 = new Web3(window.web3.currentProvider);
+        const networkId = await web3.eth.net.getId()
+        const accounts = await web3.eth.requestAccounts()
+        const networkData = DragonSwap.networks[networkId]
+        if (networkData) {
+            console.log(networkData)
+            const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
+
+            var amount_token_1 = parseInt(document.getElementById("token1").value);
+            var amount_token_2 = parseInt(document.getElementById("token2").value);
+            dragonswap.methods.getSwapToken2Estimate(amount_token_1).call(function (error, result) {
+                console.log(result)
+                document.getElementById('token2').value = result
+            });
+
+        } else {
+            window.alert('DragonSwap contract not deployed to detected network')
+        }
+    }
+
+    async function confirmSwapToken() {
         const web3 = new Web3(window.web3.currentProvider);
         const accounts = await web3.eth.requestAccounts()
         const networkId = await web3.eth.net.getId()
@@ -24,23 +45,20 @@ export default function SwapComponent() {
             var amount_token_1 = parseInt(document.getElementById("token1").value);
             var amount_token_2 = parseInt(document.getElementById("token2").value);
 
-            dragonswap.methods.LPToken(amount_token_1, amount_token_2).call(function (error, result) {
-
-            });
-
-            dragonswap.methods.provideLiquidity(amount_token_1, amount_token_2).send({ from: accounts[0] })
+            dragonswap.methods.swapToken2(amount_token_2).send({ from: accounts[0] })
                 .then(function (receipt) {
                     console.log(receipt)
                 });
+
+            // Check total token1 and token2 in pool
+            dragonswap.methods.getPoolDetails().call(function (error, result) {
+                console.log(result)
+            });
+
         } else {
             window.alert('DragonSwap contract not deployed to detected network')
         }
     }
-
-    // handleTokenValue1(value){
- 
-    // }
-
     return (
         <div style={{ height: "100vh", background: "#F8F8F8" }}>
             <Header />
@@ -54,14 +72,15 @@ export default function SwapComponent() {
                     </div>
                     <div className="transferPropContainer">
                         <input
-                            type='text'
+                            type='number'
                             className="transferPropInput"
                             placeholder='Enter amount of ETH...'
                             pattern='^[0-9]*[.,]?[0-9]*$'
                             style={{ textIndent: '10px' }}
+                            onChange={handleToken2Change}
                             id="token1"
-                            value={this.state.token1}
-                            onChange={e => this.handleTokenValue1(e.target.value)}
+                           
+
                         // onChange={e => handleChange(e, 'amount')}
                         />
                         <div className="currencySelector">
@@ -76,11 +95,12 @@ export default function SwapComponent() {
                     </div>
                     <div className="transferPropContainer">
                         <input
-                            type='text'
+                            type='number'
                             className="transferPropInput"
                             placeholder='Enter amount of DRG ...'
                             style={{ textIndent: '10px' }}
                             id="token2"
+                            onChange={handleToken1Change}
                         // onChange={e => handleChange(e, 'addressTo')}
                         />
                         <div className="currencySelector">
@@ -93,16 +113,10 @@ export default function SwapComponent() {
                             </div>
                         </div>
                     </div>
-                    <div className="confirmButton">
+                    <div className="confirmButton" onClick={confirmSwapToken}>
                         Confirm
                     </div>
-                    {/* <div onClick={e => handleSubmit(e)} className={style.confirmButton}>
-                        Confirm
-                    </div> */}
                 </div>
-                {/* <Modal isOpen={!!router.query.loading} style={customStyles}>
-                    <TransactionLoader />
-                </Modal> */}
             </div>
         </div>
     );
