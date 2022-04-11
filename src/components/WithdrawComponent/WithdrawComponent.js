@@ -13,6 +13,7 @@ export default function WithdrawComponent() {
     let [totaltoken1, settotaltoken1] = useState(0);
     let [totaltoken2, settotaltoken2] = useState(0);
     let [totalLPToken, settotalLPToken] = useState(0);
+    let [poolLPToken, setpoolLPToken] = useState(0);
     let [token1Estimate, settoken1Estimate] = useState(0);
     let [token2Estimate, settoken2Estimate] = useState(0);
 
@@ -30,6 +31,7 @@ export default function WithdrawComponent() {
                 dragonswap.methods.getPoolDetails().call(function (error, result) {
                     totaltoken1 = settotaltoken1(result[0])
                     totaltoken2 = settotaltoken2(result[1])
+                    poolLPToken = setpoolLPToken(result[2])
                 });
 
                 dragonswap.methods.getProviderLPToken().call(function (error, result) {
@@ -40,25 +42,30 @@ export default function WithdrawComponent() {
         getDataOnPageLoad()
     }, [])
 
-
+    const delay = (ms) => new Promise((res) => setTimeout(res, ms));
     const handleToken1Change = async (e) => {
 
         const web3 = new Web3(window.web3.currentProvider);
-        const networkId = await web3.eth.net.getId();
         const accounts = await web3.eth.requestAccounts();
-        console.log("Account:" + accounts);
+        const networkId = await web3.eth.net.getId();
         const networkData = DragonSwap.networks[networkId]
         if (networkData) {
-            console.log("N" + networkData)
+
             const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
-            console.log(dragonswap);
             var amount_token_1 = e.target.value;
-            console.log("Enter" + amount_token_1);
-            dragonswap.methods.getWithdrawTokenEstimate(web3.utils.toWei(amount_token_1)).call(function (error, result) {
-                console.log("Estimate:" + result)
-                token1Estimate = settoken1Estimate(result[0])
-                token2Estimate = settoken2Estimate(result[1])
-            });
+            let totalLPToken = parseInt(document.getElementById("totalLPToken").value);
+            console.log(totalLPToken);
+            if (amount_token_1 > totalLPToken) {
+                amount_token_1 = 0;
+                alert("Entered amount must less than or equal to total LP Token of provider.");
+
+            } else {
+                dragonswap.methods.getWithdrawTokenEstimate(amount_token_1).call(function (error, result) {
+                    token1Estimate = settoken1Estimate(result[0])
+                    token2Estimate = settoken2Estimate(result[1])
+                });
+            }
+
 
         } else {
             window.alert('DragonSwap contract not deployed to detected network')
@@ -68,29 +75,33 @@ export default function WithdrawComponent() {
 
 
     //load the metamask account and display on web page
-    async function loadBlockchainData() {
+    async function withdrawLiquidity() {
         const web3 = new Web3(window.web3.currentProvider);
         const accounts = await web3.eth.requestAccounts()
         const networkId = await web3.eth.net.getId()
         const networkData = DragonSwap.networks[networkId]
-
+        console.log(accounts);
         if (networkData) {
             const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
-
             // Provide Liquidity
             var amount_token_1 = parseInt(document.getElementById("token1").value);
-            var amount_token_2 = parseInt(document.getElementById("token2").value);
+            console.log(amount_token_1);
+            if (amount_token_1 > 0) {
+                dragonswap.methods.withdraw(amount_token_1).send({ from: accounts[0] })
+                    .then(function (receipt) {
+                        console.log(receipt)
+                        window.alert('Token withdraw successfully.')
+                        window.location.reload()
+                    });
 
-            dragonswap.methods.provideLiquidity(amount_token_1, amount_token_2).send({ from: accounts[0] })
-                .then(function (receipt) {
-                    console.log(receipt)
-                });
+            } else {
+                window.alert('Please enter the amount.')
+            }
+
         } else {
             window.alert('DragonSwap contract not deployed to detected network')
         }
     }
-
-
 
     return (
         <div >
@@ -104,7 +115,8 @@ export default function WithdrawComponent() {
                     <Card.Text>
                         <div className="pool-token">
                             <div className='label'>Your pool tokens:</div>
-                            <div className="" >{totalLPToken}</div>
+                            <div className="">{totalLPToken}</div>
+                            <input type="hidden" value={totalLPToken} id="totalLPToken" />
                         </div>
                         {/* <div className="pool-share">
                             <div className='label'>Your pool share :</div>
@@ -116,7 +128,6 @@ export default function WithdrawComponent() {
                                 type="text"
                                 placeholder="Enter LP Token to withdraw..."
                                 id="token1"
-
                                 onChange={handleToken1Change}
                             />
                         </InputGroup>
@@ -145,12 +156,12 @@ export default function WithdrawComponent() {
                             </div>
                             <div className='info-card'>
                                 <div><strong>LP Token returned</strong></div>
-                                <div style={{ fontStyle: 'italic' }}>{totalLPToken}</div>
+                                <div style={{ fontStyle: 'italic' }}>{poolLPToken}</div>
                             </div>
                         </div>
 
                     </Card.Text>
-                    <Button className="withdraw-btn" onClick={loadBlockchainData}>Withdraw</Button>
+                    <Button className="withdraw-btn" onClick={withdrawLiquidity}>Withdraw</Button>
                 </Card.Body>
             </Card>
         </div>
