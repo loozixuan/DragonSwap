@@ -66,7 +66,7 @@ export default function WithdrawComponent() {
                             <FormControl
                               id="productName"
                               type="text"
-                              ref={(input) => { this.productName = input }}
+                             // ref={(input) => { this.productName = input }}
                                 placeholder=""
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"
