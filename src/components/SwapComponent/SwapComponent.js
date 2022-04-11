@@ -77,7 +77,7 @@ export default function SwapComponent() {
                             pattern='^[0-9]*[.,]?[0-9]*$'
                             style={{ textIndent: '10px' }}
                             id="token1"
-                           
+
 
                         // onChange={e => handleChange(e, 'amount')}
                         />
