@@ -11,6 +11,26 @@ import Logo from '../../images/dragon_swap.png';
 
 export default function SwapComponent() {
 
+    const handleToken1Change = async (e) => {
+        const web3 = new Web3(window.web3.currentProvider);
+        const networkId = await web3.eth.net.getId()
+        const accounts = await web3.eth.requestAccounts()
+        const networkData = DragonSwap.networks[networkId]
+        if (networkData) {
+            console.log(networkData)
+            const dragonswap = new web3.eth.Contract(DragonSwap.abi, networkData.address)
+
+            var amount_token_1 = parseInt(document.getElementById("token1").value);
+            dragonswap.methods.getSwapToken1Estimate(amount_token_1).call(function (error, result) {
+                console.log(result)
+                document.getElementById('token2').value = result
+            });
+
+        } else {
+            window.alert('DragonSwap contract not deployed to detected network')
+        }
+    }
+
     const handleToken2Change = async (e) => {
         const web3 = new Web3(window.web3.currentProvider);
         const networkId = await web3.eth.net.getId()
@@ -74,10 +94,10 @@ export default function SwapComponent() {
                             type='number'
                             className="transferPropInput"
                             placeholder='Enter amount of ETH...'
-                            pattern='^[0-9]*[.,]?[0-9]*$'
+                            pattern='^[0-9][.,]?[0-9]$'
                             style={{ textIndent: '10px' }}
                             id="token1"
-
+                            onChange={handleToken1Change}
 
                         // onChange={e => handleChange(e, 'amount')}
                         />

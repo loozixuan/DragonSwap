@@ -72,26 +72,6 @@ export default function Header() {
         getbalance(account);
     };
 
-
-    // const { active, account, library, activate, deactivate } = useWeb3React()
-    // async function connect() {
-    //     try {
-    //         await activate(injected);
-    //         localStorage.setItem('isWalletConnected', true);
-    //         document.getElementById("btn-connect").style.display = "none";
-    //     } catch (ex) {
-    //         console.log(ex)
-    //     }
-    // }
-    // async function disconnect() {
-    //     try {
-    //         deactivate()
-    //         localStorage.setItem('isWalletConnected', false);
-    //     } catch (ex) {
-    //         console.log(ex)
-    //     }
-    // }
-
     useEffect(() => {
         const connectWalletOnPageLoad = async () => {
             if (localStorage?.getItem('isWalletConnected') === 'true') {
@@ -102,7 +82,6 @@ export default function Header() {
                     localStorage.setItem('isWalletConnected', true);
 
                     document.getElementById("btn-connect").style.display = "none";
-                    // document.getElementById("btn-connect").style.display = "none";
                 } catch (ex) {
                     console.log(ex)
                 }
