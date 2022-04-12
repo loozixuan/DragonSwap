@@ -129,7 +129,7 @@ export default function ProvideComponent() {
                             Amount of LP Token will be assigned to you : <span style={{ marginLeft: '15px', fontStyle: 'italic' }} id="lptoken">{LPTokenReturned}</span>
                         </div>
                     </Card.Text>
-                    <Button variant="warning" className="add-liquidity-button" onClick={addLiquidity}>Provide</Button>
+                    <Button variant="warning" className="add-liquidity-button d-block mx-auto" onClick={addLiquidity}>Provide</Button>
                 </Card.Body>
             </Card>
         </div>

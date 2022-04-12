@@ -157,7 +157,7 @@ export default function WithdrawComponent() {
                         </div>
 
                     </Card.Text>
-                    <Button className="withdraw-btn" onClick={withdrawLiquidity}>Withdraw</Button>
+                    <Button className="withdraw-btn d-block mx-auto" onClick={withdrawLiquidity}>Withdraw</Button>
                 </Card.Body>
             </Card>
         </div>
