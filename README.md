@@ -1,70 +1,24 @@
-# Getting Started with Create React App
+## Basic AMM DeX - DragonSwap
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Prerequisite
+1. Open cmd.exe
+> C:\Users\zixua>node -v <br/> v16.13.2 <br/><br/> C:\Users\zixua>truffle --version <br/> Truffle v5.4.30 - a development framework for Ethereum
+2. Ethereym wallet from Metamask
+3. Ganache 2.5.4 
 
-## Available Scripts
+### How to run
+1. Install this project by using `https://github.com/loozixuan/DragonSwap.git`
+2. Open project using IDE such as `Visual Studio`
+3. In `truffle-config.js`, the contract deployment using Ganache already been set up
+4. Open Ganache and create a new workspace for this project
+5. Select `NEW WORKSPACE` and enter workspace name as `DragonSwap`
+6. Click `ADD PROJECT`, select the `truffle-config.js` under this project
+7. After finish set up, click `SAVE WORKSPACE`
+8. Back to visual studio, open terminal and run `truffle compile` and `truffle migrate` 
+9. If the contract deployment success in terminal, you can as well see the contract deployment and its details in Ganache
+10. Now, copy one of the private key from Ganache account and import it into the metamask wallet
+11. Back to visual studio and in the terminal, run `npm run start` to start the project
 
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### FAQ
+1. If you found that any library hasn't been install, please try to copy the error shown in terminal or cmd.exe based on what you use and find the library through online to install it
+2. If after truffle migrate, the project didn't run as you expected, please copy all the contents in `DragonSwap.json from contracts folder` to `src/abis/DragonSwap.json`, run `truffle migrate --reset --network development` and refresh the page again
